@@ -1,6 +1,6 @@
 ## **Documentacion de funciones de librerias de CMSIS utilizadas para EDIII**
 ---
-### GPIO: para manipular puertos utilizaremos las funciones de la siguiente libreria:
+### GPIO: para manipular puertos utilizaremos las funciones de la libreria
 
 ```C
 #include "lpc17xx_gpio.h"
@@ -42,6 +42,21 @@ void GPIO_ClearInt(uint8_t portNum, uint32_t pin)
 
 ```
 
+### PinSel: para elegir la funcion de los pines utilizaremos la libreria
+
+```C
+#include "lpc17xx_gpio.h"
+```
+
+```C
+// Nos permite elegir la funcion del pin
+// portnum debe ser PINSEL_PORT_X
+// pinnum debe ser PINSEL_PIN_X
+// funcnum debe ser PINSEL_FUNC_X con X [0-3] (Ver en datasheet cada funcionalidad)
+static void set_PinFunc ( uint8_t portnum, uint8_t pinnum, uint8_t funcnum)
+
+
+```
 
 
 
@@ -52,7 +67,7 @@ void GPIO_ClearInt(uint8_t portNum, uint32_t pin)
 
 ---
 
-### ADC: utilizaremos las funciones incluidas en la siguiente libreria:
+### ADC: utilizaremos las funciones incluidas en la libreria
 ```C
 #include "lpc17xx_adc.h"
 ```
