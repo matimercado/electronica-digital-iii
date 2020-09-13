@@ -264,7 +264,7 @@ pre[data-line] .line-highlight[data-end]:after {
       <h2 class="mume-header" id="documentacion-de-funciones-de-librerias-de-cmsis-utilizadas-para-ediii"><strong>Documentacion de funciones de librerias de CMSIS utilizadas para EDIII</strong></h2>
 
 <hr>
-<h3 class="mume-header" id="gpio-para-manipular-puertos-utilizaremos-las-funciones-de-la-siguiente-libreria">GPIO: para manipular puertos utilizaremos las funciones de la siguiente libreria:</h3>
+<h3 class="mume-header" id="gpio-para-manipular-puertos-utilizaremos-las-funciones-de-la-libreria">GPIO: para manipular puertos utilizaremos las funciones de la libreria</h3>
 
 <pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_gpio.h&quot;</span></span>
 </pre><pre data-role="codeBlock" data-info="C" class="language-c"><span class="token comment">// Define si el pin va a ser entrada o salida. </span>
@@ -298,10 +298,36 @@ FunctionalState <span class="token function">GPIO_GetIntStatus</span> <span clas
 
 <span class="token comment">// Limpia la bandera de interrupcion del pin</span>
 <span class="token comment">// Valido para P0[0-30] y P2[0-13]</span>
-<span class="token keyword">void</span> <span class="token function">GPIO_ClearInt</span><span class="token punctuation">(</span>uint8_t portNum<span class="token punctuation">,</span> uint32_t pin<span class="token punctuation">)</span>  
+<span class="token keyword">void</span> <span class="token function">GPIO_ClearInt</span> <span class="token punctuation">(</span>uint8_t portNum<span class="token punctuation">,</span> uint32_t pin<span class="token punctuation">)</span>  
 
 </pre><hr>
-<h3 class="mume-header" id="adc-utilizaremos-las-funciones-incluidas-en-la-siguiente-libreria">ADC: utilizaremos las funciones incluidas en la siguiente libreria:</h3>
+<h3 class="mume-header" id="pinsel-para-elegir-la-funcion-de-los-pines-utilizaremos-la-libreria">PinSel: para elegir la funcion de los pines utilizaremos la libreria</h3>
+
+<pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_gpio.h&quot;</span></span>
+</pre><pre data-role="codeBlock" data-info="C" class="language-c"><span class="token comment">// Nos permite elegir la funcion del pin</span>
+<span class="token comment">// portnum debe ser PINSEL_PORT_X</span>
+<span class="token comment">// pinnum debe ser PINSEL_PIN_X</span>
+<span class="token comment">// funcnum debe ser PINSEL_FUNC_X con X [0-3] (Ver en datasheet cada funcionalidad)</span>
+<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">set_PinFunc</span> <span class="token punctuation">(</span>uint8_t portnum<span class="token punctuation">,</span> uint8_t pinnum<span class="token punctuation">,</span> uint8_t funcnum<span class="token punctuation">)</span>
+
+<span class="token comment">// Resistor mode para cada pin</span>
+<span class="token comment">// portnum debe ser PINSEL_PORT_X</span>
+<span class="token comment">// pinnum debe ser PINSEL_PIN_X</span>
+<span class="token comment">// modenum puede ser: PINSEL_PINMODE_PULLUP, PINSEL_PINMODE_TRISTATE,PINSEL_PINMODE_PULLDOWN</span>
+<span class="token keyword">void</span> <span class="token function">set_ResistorMode</span> <span class="token punctuation">(</span>uint8_t portnum<span class="token punctuation">,</span> uint8_t pinnum<span class="token punctuation">,</span> uint8_t modenum<span class="token punctuation">)</span>
+
+<span class="token comment">// OpenDrain mode para cada pin</span>
+<span class="token comment">// portnum debe ser PINSEL_PORT_X</span>
+<span class="token comment">// pinnum debe ser PINSEL_PIN_X</span>
+<span class="token comment">// modenum puede ser: PINSEL_PINMODE_NORMAL, PINSEL_PINMODE_OPENDRAIN </span>
+<span class="token keyword">void</span> <span class="token function">set_OpenDrainMode</span> <span class="token punctuation">(</span>uint8_t portnum<span class="token punctuation">,</span> uint8_t pinnum<span class="token punctuation">,</span> uint8_t modenum<span class="token punctuation">)</span>
+
+</pre><hr>
+<h3 class="mume-header" id="systick-utilizaremos-las-funciones-incuidas-en-la-libreria">SysTick: utilizaremos las funciones incuidas en la libreria</h3>
+
+<pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_systick.c&quot;</span></span>
+</pre><pre data-role="codeBlock" data-info="C" class="language-c"></pre><hr>
+<h3 class="mume-header" id="adc-utilizaremos-las-funciones-incluidas-en-la-libreria">ADC: utilizaremos las funciones incluidas en la libreria</h3>
 
 <pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_adc.h&quot;</span></span>
 </pre><pre data-role="codeBlock" data-info="C" class="language-c"><span class="token comment">// Configurar el clock del ADC; rate_conversion debe ser &lt;=200KHz</span>
@@ -342,7 +368,8 @@ uint32_t <span class="token function">ADC_GetData</span> <span class="token punc
 <span class="token comment">// Close ADC</span>
 <span class="token keyword">void</span> <span class="token function">ADC_DeInit</span> <span class="token punctuation">(</span>LPC_ADC<span class="token punctuation">)</span>
 
-</pre>
+</pre><hr>
+
       </div>
       
       

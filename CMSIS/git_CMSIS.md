@@ -49,28 +49,20 @@ void GPIO_ClearInt (uint8_t portNum, uint32_t pin)
 ### PinSel: para elegir la funcion de los pines utilizaremos la libreria
 
 ```C
-#include "lpc17xx_gpio.h"
+#include "lpc17xx_pinsel.h"
 ```
 
 ```C
-// Nos permite elegir la funcion del pin
-// portnum debe ser PINSEL_PORT_X
-// pinnum debe ser PINSEL_PIN_X
-// funcnum debe ser PINSEL_FUNC_X con X [0-3] (Ver en datasheet cada funcionalidad)
-static void set_PinFunc (uint8_t portnum, uint8_t pinnum, uint8_t funcnum)
+// Creamos estructura
+PINSEL_CFG_Type pin_configuration;
 
-// Resistor mode para cada pin
-// portnum debe ser PINSEL_PORT_X
-// pinnum debe ser PINSEL_PIN_X
-// modenum puede ser: PINSEL_PINMODE_PULLUP, PINSEL_PINMODE_TRISTATE,PINSEL_PINMODE_PULLDOWN
-void set_ResistorMode (uint8_t portnum, uint8_t pinnum, uint8_t modenum)
+pin_configuration.Portnum = PINSEL_PORT_X; // [0-4]
+pin_configuration.Pinnum = PINSEL_PIN_ X; // [0-31]
+pin_configuration.Funcnum = PINSEL_FUNC_X;; // [0-3]
+pin_configuration.Pinmode = PINSEL_PINMODE_X; // [PULLUP-TRISTATE]
+pin_configuration.OpenDrain = PINSEL_PINMODE_X; // [NORMAL-OPENDRAIN]
 
-// OpenDrain mode para cada pin
-// portnum debe ser PINSEL_PORT_X
-// pinnum debe ser PINSEL_PIN_X
-// modenum puede ser: PINSEL_PINMODE_NORMAL, PINSEL_PINMODE_OPENDRAIN 
-
-void set_OpenDrainMode (uint8_t portnum, uint8_t pinnum, uint8_t modenum)
+PINSEL_ConfigPin (&pin_configuration) // Pasamos como parametro la direccion de la estructura
 
 ```
 
