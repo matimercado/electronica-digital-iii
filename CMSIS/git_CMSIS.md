@@ -38,7 +38,7 @@ FunctionalState GPIO_GetIntStatus (uint8_t portNum, uint32_t pinD, uint8_t edgeS
 
 // Limpia la bandera de interrupcion del pin
 // Valido para P0[0-30] y P2[0-13]
-void GPIO_ClearInt(uint8_t portNum, uint32_t pin)  
+void GPIO_ClearInt (uint8_t portNum, uint32_t pin)  
 
 ```
 
@@ -53,27 +53,34 @@ void GPIO_ClearInt(uint8_t portNum, uint32_t pin)
 // portnum debe ser PINSEL_PORT_X
 // pinnum debe ser PINSEL_PIN_X
 // funcnum debe ser PINSEL_FUNC_X con X [0-3] (Ver en datasheet cada funcionalidad)
-static void set_PinFunc ( uint8_t portnum, uint8_t pinnum, uint8_t funcnum)
+static void set_PinFunc (uint8_t portnum, uint8_t pinnum, uint8_t funcnum)
 
+// Resistor mode para cada pin
+// portnum debe ser PINSEL_PORT_X
+// pinnum debe ser PINSEL_PIN_X
+// modenum puede ser: PINSEL_PINMODE_PULLUP, PINSEL_PINMODE_TRISTATE, PINSEL_PINMODE_PULLDOWN
+void set_ResistorMode (uint8_t portnum, uint8_t pinnum, uint8_t modenum)
+
+// OpenDrain mode para cada pin
+// portnum debe ser PINSEL_PORT_X
+// pinnum debe ser PINSEL_PIN_X
+// modenum puede ser: PINSEL_PINMODE_NORMAL, PINSEL_PINMODE_OPENDRAIN 
+
+void set_OpenDrainMode (uint8_t portnum, uint8_t pinnum, uint8_t modenum)
 
 ```
-
-
-
-
-
-
-
-
 ---
 
 ### ADC: utilizaremos las funciones incluidas en la libreria
+
 ```C
+
 #include "lpc17xx_adc.h"
 ```
 
 
 ```C
+
 // Configurar el clock del ADC; rate_conversion debe ser <=200KHz
 void ADC_Init (LPC_ADC, uint32_t rate_conversion)
 
