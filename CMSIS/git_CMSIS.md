@@ -126,6 +126,9 @@ channel_configuration.MatchValue = uint32_t; // #define SECOND (uint32_t) 10000
 
 TIM_ConfigMatch (LPC_TIM0, &channel_configuration); // Pasamos como parametro la direccion del la estructura
 
+// Enciendo Timer0
+Tim_CMD (LPC_TIM0, X); // [ENABLE-DISABLE]
+
 ```
 
 ### ADC: utilizaremos las funciones incluidas en la libreria
