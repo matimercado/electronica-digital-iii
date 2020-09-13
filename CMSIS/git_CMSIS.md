@@ -76,6 +76,24 @@ PINSEL_ConfigPin (&pin_configuration) // Pasamos como parametro la direccion de 
 
 ```C
 
+// Configuracion de System Tick con clock interno
+// time debe ser expresada en ms
+void SYSTICK_InternalInit (uint32_t time)
+
+// Habilita o deshabilita las interrupciones por SysTick
+// state debe ser ENABLE o DISABLE
+void SYSTICK_IntCmd (FuncionalState state)
+
+// Habilita o deshabilita el SysTick
+// state debe ser ENABLE o DISABLE
+void SYSTICK_Cmd (FuncionalState state)
+
+// Nos devuelve el valor del contador de SysTick
+uint32_t SYSTICK_GetCurrentValue (void)
+
+// Limpia la bandera del contador
+void SYSTICK_ClearCounterFlag(void)
+
 ```
 
 ---
