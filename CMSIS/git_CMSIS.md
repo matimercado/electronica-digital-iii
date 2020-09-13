@@ -129,7 +129,7 @@ FlagStatus ADC_ChannelGetStatus (LPC_ADC, uint8_t channel, uint32_t status)
 // Aqui estariamos estariamos realizando algo siempre y cuando el canal [0] 
 // NO haya terminado de convertir (por eso se iguala a RESET).
 // Cuando termine de convertir, devolvera un SET y se procedera a realizar otra cosa
-while (ADC_ChannelGetStatus (LPC_ADC, 0, 1)==RESET) 
+while (ADC_ChannelGetStatus (LPC_ADC, 0, 1) == RESET) 
 
 // Nos devuelve el resultado de la conversion  del registro ADDR0. 
 // En el parametro channel ponemos el canal del que queremos leer los datos [7-0]
