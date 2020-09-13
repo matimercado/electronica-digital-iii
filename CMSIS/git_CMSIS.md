@@ -1,5 +1,7 @@
 ## **Documentacion de funciones de librerias de CMSIS utilizadas para EDIII**
+
 ---
+
 ### GPIO: para manipular puertos utilizaremos las funciones de la libreria
 
 ```C
@@ -42,6 +44,8 @@ void GPIO_ClearInt (uint8_t portNum, uint32_t pin)
 
 ```
 
+---
+
 ### PinSel: para elegir la funcion de los pines utilizaremos la libreria
 
 ```C
@@ -58,7 +62,7 @@ static void set_PinFunc (uint8_t portnum, uint8_t pinnum, uint8_t funcnum)
 // Resistor mode para cada pin
 // portnum debe ser PINSEL_PORT_X
 // pinnum debe ser PINSEL_PIN_X
-// modenum puede ser: PINSEL_PINMODE_PULLUP, PINSEL_PINMODE_TRISTATE, PINSEL_PINMODE_PULLDOWN
+// modenum puede ser: PINSEL_PINMODE_PULLUP, PINSEL_PINMODE_TRISTATE,PINSEL_PINMODE_PULLDOWN
 void set_ResistorMode (uint8_t portnum, uint8_t pinnum, uint8_t modenum)
 
 // OpenDrain mode para cada pin
@@ -69,15 +73,26 @@ void set_ResistorMode (uint8_t portnum, uint8_t pinnum, uint8_t modenum)
 void set_OpenDrainMode (uint8_t portnum, uint8_t pinnum, uint8_t modenum)
 
 ```
+
+---
+
+### SysTick: utilizaremos las funciones incuidas en la libreria
+
+```C
+#include "lpc17xx_systick.c"
+```
+
+```C
+
+```
+
 ---
 
 ### ADC: utilizaremos las funciones incluidas en la libreria
 
 ```C
-
 #include "lpc17xx_adc.h"
-```
-
+``` 
 
 ```C
 
@@ -119,4 +134,6 @@ void ADC_StartCmd (LPC_ADC, uint8_t start_mode)
 // Close ADC
 void ADC_DeInit (LPC_ADC)
 
-``` 
+```
+
+---
