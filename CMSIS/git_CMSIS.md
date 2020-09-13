@@ -62,7 +62,7 @@ pin_configuration.Funcnum = PINSEL_FUNC_X;; // [0-3]
 pin_configuration.Pinmode = PINSEL_PINMODE_X; // [PULLUP-TRISTATE]
 pin_configuration.OpenDrain = PINSEL_PINMODE_X; // [NORMAL-OPENDRAIN]
 
-PINSEL_ConfigPin (&pin_configuration) // Pasamos como parametro la direccion de la estructura
+PINSEL_ConfigPin (&pin_configuration); // Pasamos como parametro la direccion de la estructura
 
 ```
 
@@ -71,7 +71,7 @@ PINSEL_ConfigPin (&pin_configuration) // Pasamos como parametro la direccion de 
 ### SysTick: utilizaremos las funciones incuidas en la libreria
 
 ```C
-#include "lpc17xx_systick.c"
+#include "lpc17xx_systick.h"
 ```
 
 ```C
@@ -98,6 +98,36 @@ void SYSTICK_ClearCounterFlag(void)
 
 ---
 
+### Timer: utilizaremos las funciones incluidas en la libreria
+
+```C
+#include "lpc17xx_timer.h"
+```
+
+```C
+
+// Creamos la estructura
+TIM_TIMERCFG_Type timer_0_configuration;
+
+timer_0_configuration.PrescaleOption = TIM_PRESCALE_X; // [TICKVAL-USVAL] Usamos USVAL para us
+timer_0_configuration.PrescaleValue = uint32_t; // Valor del prescaler
+
+TIM_Init (LPC_TIM0, TIM_TIMER_MODE, &timer_0_configuration); // Pasamos como parametro la direccion de la estructura
+
+// Creamos la estructura
+TIM_MATCHCFG_Type channel_configuration;
+
+channel_configuration.MatchChannel = X; // [0-3]
+channel_configuration.IntOnMatch = X; // [ENABLE-DISABLE]
+channel_configuration.StopOnMatch = X; // [ENABLE-DISABLE]
+channel_configuration.ResetOnMatch = X; // [ENABLE-DISABLE]
+channel_configuration.ExtMatchOutputType = TIM_EXTMATCH_X; // [NOTHING-LOW-HIGH-TOGGLE]
+channel_configuration.MatchValue = uint32_t; // #define SECOND (uint32_t) 10000
+
+TIM_ConfigMatch (LPC_TIM0, &channel_configuration); // Pasamos como parametro la direccion del la estructura
+
+```
+
 ### ADC: utilizaremos las funciones incluidas en la libreria
 
 ```C
@@ -116,7 +146,7 @@ void ADC_ChannelCmd (LPC_ADC, uint8_t channel, state)
 
 // Habilita o deshabilita las interrupciones en cualquiera de los 8 canales que posee la LPC, 
 // por lo que la variable channel puede obtener valores de 0 a 7, 
-//mientras que state puede ser ENABLE o DISABLE 
+// mientras que state puede ser ENABLE o DISABLE 
 void ADC_IntConfig (LPC_ADC, uint8_t channel, state)
 
 // Nos devuelve SET o RESET dependiendo de si el ADC termino de convertir o no. 
