@@ -62,7 +62,7 @@ pin_configuration.Funcnum = PINSEL_FUNC_X;; // [0-3]
 pin_configuration.Pinmode = PINSEL_PINMODE_X; // [PULLUP-TRISTATE]
 pin_configuration.OpenDrain = PINSEL_PINMODE_X; // [NORMAL-OPENDRAIN]
 
-PINSEL_ConfigPin (&pin_configuration); // Pasamos como parametro la direccion de la estructura
+PINSEL_ConfigPin (&pin_configuration); // Direccion de la estructura como parametro
 
 ```
 
@@ -112,7 +112,7 @@ TIM_TIMERCFG_Type timer_0_configuration;
 timer_0_configuration.PrescaleOption = TIM_PRESCALE_X; // [TICKVAL-USVAL] Usamos USVAL para us
 timer_0_configuration.PrescaleValue = uint32_t; // Valor del prescaler
 
-TIM_Init (LPC_TIM0, TIM_TIMER_MODE, &timer_0_configuration); // Pasamos como parametro la direccion de la estructura
+TIM_Init (LPC_TIM0, TIM_TIMER_MODE, &timer_0_configuration);
 
 // Creamos la estructura
 TIM_MATCHCFG_Type channel_configuration;
@@ -124,7 +124,7 @@ channel_configuration.ResetOnMatch = X; // [ENABLE-DISABLE]
 channel_configuration.ExtMatchOutputType = TIM_EXTMATCH_X; // [NOTHING-LOW-HIGH-TOGGLE]
 channel_configuration.MatchValue = uint32_t; // #define SECOND (uint32_t) 10000
 
-TIM_ConfigMatch (LPC_TIM0, &channel_configuration); // Pasamos como parametro la direccion del la estructura
+TIM_ConfigMatch (LPC_TIM0, &channel_configuration); // Direccion de la estructura como parametro
 
 // Enciendo Timer0
 Tim_CMD (LPC_TIM0, X); // [ENABLE-DISABLE]

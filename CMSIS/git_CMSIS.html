@@ -303,31 +303,68 @@ FunctionalState <span class="token function">GPIO_GetIntStatus</span> <span clas
 </pre><hr>
 <h3 class="mume-header" id="pinsel-para-elegir-la-funcion-de-los-pines-utilizaremos-la-libreria">PinSel: para elegir la funcion de los pines utilizaremos la libreria</h3>
 
-<pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_gpio.h&quot;</span></span>
-</pre><pre data-role="codeBlock" data-info="C" class="language-c"><span class="token comment">// Nos permite elegir la funcion del pin</span>
-<span class="token comment">// portnum debe ser PINSEL_PORT_X</span>
-<span class="token comment">// pinnum debe ser PINSEL_PIN_X</span>
-<span class="token comment">// funcnum debe ser PINSEL_FUNC_X con X [0-3] (Ver en datasheet cada funcionalidad)</span>
-<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">set_PinFunc</span> <span class="token punctuation">(</span>uint8_t portnum<span class="token punctuation">,</span> uint8_t pinnum<span class="token punctuation">,</span> uint8_t funcnum<span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_pinsel.h&quot;</span></span>
+</pre><pre data-role="codeBlock" data-info="C" class="language-c"><span class="token comment">// Creamos estructura</span>
+PINSEL_CFG_Type pin_configuration<span class="token punctuation">;</span>
 
-<span class="token comment">// Resistor mode para cada pin</span>
-<span class="token comment">// portnum debe ser PINSEL_PORT_X</span>
-<span class="token comment">// pinnum debe ser PINSEL_PIN_X</span>
-<span class="token comment">// modenum puede ser: PINSEL_PINMODE_PULLUP, PINSEL_PINMODE_TRISTATE,PINSEL_PINMODE_PULLDOWN</span>
-<span class="token keyword">void</span> <span class="token function">set_ResistorMode</span> <span class="token punctuation">(</span>uint8_t portnum<span class="token punctuation">,</span> uint8_t pinnum<span class="token punctuation">,</span> uint8_t modenum<span class="token punctuation">)</span>
+pin_configuration<span class="token punctuation">.</span>Portnum <span class="token operator">=</span> PINSEL_PORT_X<span class="token punctuation">;</span> <span class="token comment">// [0-4]</span>
+pin_configuration<span class="token punctuation">.</span>Pinnum <span class="token operator">=</span> PINSEL_PIN_ X<span class="token punctuation">;</span> <span class="token comment">// [0-31]</span>
+pin_configuration<span class="token punctuation">.</span>Funcnum <span class="token operator">=</span> PINSEL_FUNC_X<span class="token punctuation">;</span><span class="token punctuation">;</span> <span class="token comment">// [0-3]</span>
+pin_configuration<span class="token punctuation">.</span>Pinmode <span class="token operator">=</span> PINSEL_PINMODE_X<span class="token punctuation">;</span> <span class="token comment">// [PULLUP-TRISTATE]</span>
+pin_configuration<span class="token punctuation">.</span>OpenDrain <span class="token operator">=</span> PINSEL_PINMODE_X<span class="token punctuation">;</span> <span class="token comment">// [NORMAL-OPENDRAIN]</span>
 
-<span class="token comment">// OpenDrain mode para cada pin</span>
-<span class="token comment">// portnum debe ser PINSEL_PORT_X</span>
-<span class="token comment">// pinnum debe ser PINSEL_PIN_X</span>
-<span class="token comment">// modenum puede ser: PINSEL_PINMODE_NORMAL, PINSEL_PINMODE_OPENDRAIN </span>
-<span class="token keyword">void</span> <span class="token function">set_OpenDrainMode</span> <span class="token punctuation">(</span>uint8_t portnum<span class="token punctuation">,</span> uint8_t pinnum<span class="token punctuation">,</span> uint8_t modenum<span class="token punctuation">)</span>
+<span class="token function">PINSEL_ConfigPin</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>pin_configuration<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Direccion de la estructura como parametro</span>
 
 </pre><hr>
 <h3 class="mume-header" id="systick-utilizaremos-las-funciones-incuidas-en-la-libreria">SysTick: utilizaremos las funciones incuidas en la libreria</h3>
 
-<pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_systick.c&quot;</span></span>
-</pre><pre data-role="codeBlock" data-info="C" class="language-c"></pre><hr>
-<h3 class="mume-header" id="adc-utilizaremos-las-funciones-incluidas-en-la-libreria">ADC: utilizaremos las funciones incluidas en la libreria</h3>
+<pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_systick.h&quot;</span></span>
+</pre><pre data-role="codeBlock" data-info="C" class="language-c"><span class="token comment">// Configuracion de System Tick con clock interno</span>
+<span class="token comment">// time debe ser expresada en ms</span>
+<span class="token keyword">void</span> <span class="token function">SYSTICK_InternalInit</span> <span class="token punctuation">(</span>uint32_t time<span class="token punctuation">)</span>
+
+<span class="token comment">// Habilita o deshabilita las interrupciones por SysTick</span>
+<span class="token comment">// state debe ser ENABLE o DISABLE</span>
+<span class="token keyword">void</span> <span class="token function">SYSTICK_IntCmd</span> <span class="token punctuation">(</span>FuncionalState state<span class="token punctuation">)</span>
+
+<span class="token comment">// Habilita o deshabilita el SysTick</span>
+<span class="token comment">// state debe ser ENABLE o DISABLE</span>
+<span class="token keyword">void</span> <span class="token function">SYSTICK_Cmd</span> <span class="token punctuation">(</span>FuncionalState state<span class="token punctuation">)</span>
+
+<span class="token comment">// Nos devuelve el valor del contador de SysTick</span>
+uint32_t <span class="token function">SYSTICK_GetCurrentValue</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+
+<span class="token comment">// Limpia la bandera del contador</span>
+<span class="token keyword">void</span> <span class="token function">SYSTICK_ClearCounterFlag</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+
+</pre><hr>
+<h3 class="mume-header" id="timer-utilizaremos-las-funciones-incluidas-en-la-libreria">Timer: utilizaremos las funciones incluidas en la libreria</h3>
+
+<pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_timer.h&quot;</span></span>
+</pre><pre data-role="codeBlock" data-info="C" class="language-c"><span class="token comment">// Creamos la estructura</span>
+TIM_TIMERCFG_Type timer_0_configuration<span class="token punctuation">;</span>
+
+timer_0_configuration<span class="token punctuation">.</span>PrescaleOption <span class="token operator">=</span> TIM_PRESCALE_X<span class="token punctuation">;</span> <span class="token comment">// [TICKVAL-USVAL] Usamos USVAL para us</span>
+timer_0_configuration<span class="token punctuation">.</span>PrescaleValue <span class="token operator">=</span> uint32_t<span class="token punctuation">;</span> <span class="token comment">// Valor del prescaler</span>
+
+<span class="token function">TIM_Init</span> <span class="token punctuation">(</span>LPC_TIM0<span class="token punctuation">,</span> TIM_TIMER_MODE<span class="token punctuation">,</span> <span class="token operator">&amp;</span>timer_0_configuration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Creamos la estructura</span>
+TIM_MATCHCFG_Type channel_configuration<span class="token punctuation">;</span>
+
+channel_configuration<span class="token punctuation">.</span>MatchChannel <span class="token operator">=</span> X<span class="token punctuation">;</span> <span class="token comment">// [0-3]</span>
+channel_configuration<span class="token punctuation">.</span>IntOnMatch <span class="token operator">=</span> X<span class="token punctuation">;</span> <span class="token comment">// [ENABLE-DISABLE]</span>
+channel_configuration<span class="token punctuation">.</span>StopOnMatch <span class="token operator">=</span> X<span class="token punctuation">;</span> <span class="token comment">// [ENABLE-DISABLE]</span>
+channel_configuration<span class="token punctuation">.</span>ResetOnMatch <span class="token operator">=</span> X<span class="token punctuation">;</span> <span class="token comment">// [ENABLE-DISABLE]</span>
+channel_configuration<span class="token punctuation">.</span>ExtMatchOutputType <span class="token operator">=</span> TIM_EXTMATCH_X<span class="token punctuation">;</span> <span class="token comment">// [NOTHING-LOW-HIGH-TOGGLE]</span>
+channel_configuration<span class="token punctuation">.</span>MatchValue <span class="token operator">=</span> uint32_t<span class="token punctuation">;</span> <span class="token comment">// #define SECOND (uint32_t) 10000</span>
+
+<span class="token function">TIM_ConfigMatch</span> <span class="token punctuation">(</span>LPC_TIM0<span class="token punctuation">,</span> <span class="token operator">&amp;</span>channel_configuration<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Direccion de la estructura como parametro</span>
+
+<span class="token comment">// Enciendo Timer0</span>
+<span class="token function">Tim_CMD</span> <span class="token punctuation">(</span>LPC_TIM0<span class="token punctuation">,</span> X<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// [ENABLE-DISABLE]</span>
+
+</pre><h3 class="mume-header" id="adc-utilizaremos-las-funciones-incluidas-en-la-libreria">ADC: utilizaremos las funciones incluidas en la libreria</h3>
 
 <pre data-role="codeBlock" data-info="C" class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&quot;lpc17xx_adc.h&quot;</span></span>
 </pre><pre data-role="codeBlock" data-info="C" class="language-c"><span class="token comment">// Configurar el clock del ADC; rate_conversion debe ser &lt;=200KHz</span>
@@ -340,7 +377,7 @@ FunctionalState <span class="token function">GPIO_GetIntStatus</span> <span clas
 
 <span class="token comment">// Habilita o deshabilita las interrupciones en cualquiera de los 8 canales que posee la LPC, </span>
 <span class="token comment">// por lo que la variable channel puede obtener valores de 0 a 7, </span>
-<span class="token comment">//mientras que state puede ser ENABLE o DISABLE </span>
+<span class="token comment">// mientras que state puede ser ENABLE o DISABLE </span>
 <span class="token keyword">void</span> <span class="token function">ADC_IntConfig</span> <span class="token punctuation">(</span>LPC_ADC<span class="token punctuation">,</span> uint8_t channel<span class="token punctuation">,</span> state<span class="token punctuation">)</span>
 
 <span class="token comment">// Nos devuelve SET o RESET dependiendo de si el ADC termino de convertir o no. </span>
@@ -353,7 +390,7 @@ FlagStatus <span class="token function">ADC_ChannelGetStatus</span> <span class=
 <span class="token comment">// Aqui estariamos estariamos realizando algo siempre y cuando el canal [0] </span>
 <span class="token comment">// NO haya terminado de convertir (por eso se iguala a RESET).</span>
 <span class="token comment">// Cuando termine de convertir, devolvera un SET y se procedera a realizar otra cosa</span>
-<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">ADC_ChannelGetStatus</span> <span class="token punctuation">(</span>LPC_ADC<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">==</span>RESET<span class="token punctuation">)</span> 
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">ADC_ChannelGetStatus</span> <span class="token punctuation">(</span>LPC_ADC<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> RESET<span class="token punctuation">)</span> 
 
 <span class="token comment">// Nos devuelve el resultado de la conversion  del registro ADDR0. </span>
 <span class="token comment">// En el parametro channel ponemos el canal del que queremos leer los datos [7-0]</span>
